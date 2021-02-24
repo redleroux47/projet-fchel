@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { StateProvider } from './Redux/StateProvider';
-import reducer, { initialState } from './Redux/reducer';
+import { StateProvider } from './redux/StateProvider';
+import reducer, { initialState } from './redux/reducer';
 
 ReactDOM.render(
 	<React.StrictMode>

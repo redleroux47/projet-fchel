@@ -1,10 +1,15 @@
-import { useRedux } from './Redux/StateProvider';
+import FormToSave from './components/FormToSave';
+import FormToDisplay from './components/FormToDisplay';
+import './App.css';
 
 function App() {
-	const [state, dispatch] = useRedux();
 	return (
-		<div className="App">
-			<h1> Hello World!</h1>
+		<div className="app">
+			<h1>IndexedDB exemple</h1>
+			<div className="app__form">
+				<FormToSave />
+				<FormToDisplay />
+			</div>
 		</div>
 	);
 }
