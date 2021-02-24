@@ -18,7 +18,8 @@ export const connectDb = (dbName, version, table) => {
 		let db = openDB.result;
 		// Create it if it doesn't exist
 		if (!db.objectStoreNames.contains(table)) {
-			db.createObjectStore(table, { keyPath: 'id' });
+			const store = db.createObjectStore(table, { keyPath: 'id' });
+			store.createIndex('iid', 'id', { unique: true });
 		}
 	};
 	return openDB;
@@ -52,6 +53,24 @@ export const addData = (dbName, version, table, id = 0, data = {}) => {
 	};
 };
 
-// export const readData = (dbName, version, table) => {
-// 	const openDB = connectDb(dbName, version, table);
-// };
+export const readDataByKey = (dbName, version, table, id) => {
+	const openDB = connectDb(dbName, version, table);
+	let result;
+	openDB.onsuccess = function () {
+		let db = openDB.result;
+
+		let transaction = db.transaction(table, 'readonly');
+		transaction.oncomplete = function () {
+			//console.log('Transaction is complete');
+		};
+
+		let datas = transaction.objectStore(table);
+		// datas.get(id).onsuccess = (event) => {
+		// 	console.log('[Transaction - GET] product with id 1', event.target.value);
+		// };
+		console.log(datas.getAll());
+		result = datas.getAll();
+	};
+	console.log('the result =>', result);
+	return result;
+};

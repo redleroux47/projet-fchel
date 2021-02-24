@@ -18,13 +18,7 @@ function FormToSave() {
 			<h1>Saving Data to IndexedDb</h1>
 			<form onSubmit={handleSubmit}>
 				<label>dbName :</label>
-				<input
-					type="text"
-					id="dbName"
-					name="dbName"
-					value={form?.dbName}
-					onChange={handleChange}
-				/>
+				<input type="text" id="dbName" name="dbName" onChange={handleChange} />
 
 				<label>version :</label>
 				<input
