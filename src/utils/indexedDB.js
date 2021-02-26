@@ -60,6 +60,6 @@ export const readDataByKey = (dbName, version, table, id) =>
 			let db = openDB.result;
 			let transaction = db.transaction(table, 'readonly');
 			let datas = transaction.objectStore(table);
-			resolve(datas.getAll());
+			datas.get('a').onsuccess = (data) => resolve(data.srcElement.result);
 		};
 	});

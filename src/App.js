@@ -1,7 +1,7 @@
 import FormToSave from './components/FormToSave';
 import FormToDisplay from './components/FormToDisplay';
 import './App.css';
-import { readDataByKey, connectDb } from './utils/indexedDB';
+import { readDataByKey } from './utils/indexedDB';
 import { useState, useEffect } from 'react';
 
 function App() {
