@@ -53,24 +53,13 @@ export const addData = (dbName, version, table, id = 0, data = {}) => {
 	};
 };
 
-export const readDataByKey = (dbName, version, table, id) => {
-	const openDB = connectDb(dbName, version, table);
-	let result;
-	openDB.onsuccess = function () {
-		let db = openDB.result;
-
-		let transaction = db.transaction(table, 'readonly');
-		transaction.oncomplete = function () {
-			//console.log('Transaction is complete');
+export const readDataByKey = (dbName, version, table, id) =>
+	new Promise((resolve, reject) => {
+		const openDB = connectDb(dbName, version, table);
+		openDB.onsuccess = function () {
+			let db = openDB.result;
+			let transaction = db.transaction(table, 'readonly');
+			let datas = transaction.objectStore(table);
+			resolve(datas.getAll());
 		};
-
-		let datas = transaction.objectStore(table);
-		// datas.get(id).onsuccess = (event) => {
-		// 	console.log('[Transaction - GET] product with id 1', event.target.value);
-		// };
-		console.log(datas.getAll());
-		result = datas.getAll();
-	};
-	console.log('the result =>', result);
-	return result;
-};
+	});

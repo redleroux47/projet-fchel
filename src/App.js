@@ -2,10 +2,16 @@ import FormToSave from './components/FormToSave';
 import FormToDisplay from './components/FormToDisplay';
 import './App.css';
 import { readDataByKey } from './utils/indexedDB';
+import { useState, useEffect } from 'react';
 
 function App() {
-	//console.log('app==>', readDataByKey('abc', 1, 'abc', 'a'));
-	readDataByKey('abc', 1, 'abc', 'a');
+	const [state, setState] = useState(null);
+	useEffect(() => {
+		return readDataByKey('abc', 1, 'abc', 'a').then((result) =>
+			setState(result)
+		);
+	}, [state]);
+	console.log(state);
 	return (
 		<div className="app">
 			<h1>IndexedDB exemple</h1>
